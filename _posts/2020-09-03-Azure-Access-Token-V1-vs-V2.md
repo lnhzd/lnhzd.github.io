@@ -4,10 +4,7 @@ title: Azure Access Token
 ---
 
 A placeholder to talk about Azure Access Token v1 vs v2
--
--
--
--
+
 
 | accessTokenAcceptedVersion   (callee) | iss                       | aud                                  | token endpoint | param    | resp |
 |---------------------------------------|---------------------------|--------------------------------------|----------------|----------|------|
