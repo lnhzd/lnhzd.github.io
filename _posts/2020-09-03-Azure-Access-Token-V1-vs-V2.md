@@ -29,7 +29,7 @@ POST https://login.microsoftonline.com/cbbd5fc3-8924-44f4-aa61-e1683f47d182/oaut
 Host: login.microsoftonline.com  
 Content-Type: application/x-www-form-urlencoded  
 
-grant_type=password&client_id=11691347-c9a6-446b-aec1-04cba2dd36dc&client_secret=***&resource=api://c3520820-bfc1-4e44-b0a2-cbe57eb28068&username=atlasuser@rdt-online.com&password=********
+grant_type=password&client_id=11691347-c9a6-446b-aec1-04cba2dd36dc&client_secret=7***&resource=api://c3520820-bfc1-4e44-b0a2-cbe57eb28068&username=atlasuser@rdt-online.com&password=********
 
 * v2:
 
