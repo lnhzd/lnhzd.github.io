@@ -29,7 +29,7 @@ POST https://login.microsoftonline.com/cbbd5fc3-8924-44f4-aa61-e1683f47d182/oaut
 Host: login.microsoftonline.com  
 Content-Type: application/x-www-form-urlencoded  
 
-grant_type=password&client_id=11691347-c9a6-446b-aec1-04cba2dd36dc&client_secret=7Ck.B5vKOE[Jb]3kA.n1qy@QSdTVykox&resource=api://c3520820-bfc1-4e44-b0a2-cbe57eb28068&username=atlasuser@rdt-online.com&password=********
+grant_type=password&client_id=11691347-c9a6-446b-aec1-04cba2dd36dc&client_secret=***&resource=api://c3520820-bfc1-4e44-b0a2-cbe57eb28068&username=atlasuser@rdt-online.com&password=********
 
 * v2:
 
@@ -37,7 +37,7 @@ POST https://login.microsoftonline.com/cbbd5fc3-8924-44f4-aa61-e1683f47d182/oaut
 Host: login.microsoftonline.com  
 Content-Type: application/x-www-form-urlencoded  
 
-grant_type=password&client_id=11691347-c9a6-446b-aec1-04cba2dd36dc&client_secret=7Ck.B5vKOE[Jb]3kA.n1qy@QSdTVykox&scope=api://c3520820-bfc1-4e44-b0a2-cbe57eb28068/user_impersonation%20Offline_access&username=atlasuser@rdt-online.com&password=********
+grant_type=password&client_id=11691347-c9a6-446b-aec1-04cba2dd36dc&client_secret=7***&scope=api://c3520820-bfc1-4e44-b0a2-cbe57eb28068/user_impersonation%20Offline_access&username=atlasuser@rdt-online.com&password=********
 
 
 #### Securing an API:
@@ -47,7 +47,7 @@ https://login.microsoftonline.com/cbbd5fc3-8924-44f4-aa61-e1683f47d182/oauth2/v2
 
 on app’s start-up, depends on the authority configured, the app will go to the corresponding discovery endpoint to fetch the OIDC metadata doc, as a result of this, for any requests that calls into the API with an access token, the claims from the access token needs to match whatever exposed from the discovery endpoint – it is quite obvious that only the configured version of access token will be issued hence the meta doc from the discovery endpoint will need to match it or an 401 will be returned. 
 
-#### a comparison of common used claims between v1 v2
+#### A comparison of common used claims between v1 v2
 
 | accessTokenAcceptedVersion   (callee) | iss (claim)               | aud (claim)                          | token endpoint | param    | resp |
 |---------------------------------------|---------------------------|--------------------------------------|----------------|----------|------|
