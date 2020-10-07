@@ -65,7 +65,7 @@ on app’s start-up, depends on the authority configured, the app will go to the
 00000002-0000-0000-c000-000000000000 is the app Id for AAD graph API - scope param is not recognoized by v1 endpoint, so v1 assumes you'd like an access token for getting access to graph api by default.
 
 #### Quiz Time:
-Q: Both test client and API are configured with V2 endpoint: test client is requesting a token from V2 endpoint, WebAPI is secured with V2 endpoint, why do I get a 401 response? Given I have checked the Audience configured on the API side matches the audience claim in the token request?
+Q: Both test client and API are configured with V2 endpoint: test client is requesting a token from V2 endpoint, WebAPI is secured with V2 endpoint, why do I get a 401 response? Given I have checked the Audience configured on the API side matches the audience claim in the token request?  
 A: It is likely that the Azure App the API secured with has "Accesstokenacceptedversion" configured as V1 (null) - When test client request a token from V2 endpoint, a V1 token will still be issued, hence iss claim has a value of "sts.windows.net", which does not match the one discovered from the V2 well-known endpoint on the API side - "login.microsoftonline.com".
 
 Q: What are the possible fix for the problem above?  
