@@ -3,7 +3,7 @@ layout: post
 title: Microsoft Identity Platform vs Azure AD
 ---
 
-AAD refers to v1 endpoint, while MIP refers to v2 endpoint.
+AAD refers to v1 endpoint, while MIP refers to v2 endpoint.  
 AAD and MIP exist side by side, for each tenant, you’ll have one discovery endpoint for each of them, e.g.:
 
 AAD:  
@@ -18,7 +18,7 @@ https://login.microsoftonline.com/cbbd5fc3-8924-44f4-aa61-e1683f47d182/v2.0/.wel
 It is the value of “accesstokenacceptedversion” under Manifest of App Registration determines if a v1 or v2 token will be issued – by default this will be V1 – “accesstokenacceptedversion”: null.
 
 #### Caller or Callee?
-Accesstokenacceptedversion determines the version of access token issued for an API you need to get access to (callee).
+Accesstokenacceptedversion determines the version of access token issued for an API you need to get access to (callee).  
 If accesstokenacceptedversion is set to 2 for an Azure App named App A with AppId (c3520820-bfc1-4e44-b0a2-cbe57eb28068) – then all the accessToken request asking for access of App A, either through a V1 endpoint, or a V2 endpoint, will BOTH get an v2 access token.
 
 Therefore, when requesting an access token for calling app - c3520820-bfc1-4e44-b0a2-cbe57eb28068 – you’ll get the same V2 access token from both token requests below.
