@@ -61,3 +61,5 @@ on app’s start-up, depends on the authority configured, the app will go to the
 | 1                                     | sts.windows.net           | api://appid*                         | v1.0           | resource | 200  |
 
 
+00000002-0000-0000-c000-000000000000 is the app Id for AAD graph API - scope param is not recognoized by v1 endpoint, so v1 assumes you'd like an access token for getting access to graph api by default.
+
