@@ -41,11 +41,12 @@ grant_type=password&client_id=11691347-c9a6-446b-aec1-04cba2dd36dc&client_secret
 
 
 #### Securing an API:
-When adding an authentication scheme to secure the API for incoming traffic, we will need to configure an authority (TokenUrl) your API is secured with, such authority will have to match the “accesstokenacceptedversion” of the Azure AD app you are secured with.  
-https://login.microsoftonline.com/cbbd5fc3-8924-44f4-aa61-e1683f47d182/oauth2/token  
-https://login.microsoftonline.com/cbbd5fc3-8924-44f4-aa61-e1683f47d182/oauth2/v2.0/token  
+When adding an authentication scheme to secure the API for incoming traffic, we will need to configure an authority (TokenUrl) to secured with, such authority (V1, or V2) will have to match the “accesstokenacceptedversion” of the Azure AD app that is acting as the API:
 
-on app’s start-up, depends on the authority configured, the app will go to the corresponding discovery endpoint to fetch the OIDC metadata doc, as a result of this, for any requests that calls into the API with an access token, the claims from the access token needs to match whatever exposed from the discovery endpoint – it is quite obvious that only the configured version of access token will be issued hence the meta doc from the discovery endpoint will need to match it or an 401 will be returned. 
+V1 Authority: https://login.microsoftonline.com/cbbd5fc3-8924-44f4-aa61-e1683f47d182/oauth2/token  
+V2 Authority: https://login.microsoftonline.com/cbbd5fc3-8924-44f4-aa61-e1683f47d182/oauth2/v2.0/token  
+
+on app’s start-up, depends on the authority configured, the app will go to the corresponding discovery endpoint to fetch the OIDC metadata doc, as a result of this, for any requests that calls into the API with an access token, the claims from the access token needs to match whatever exposed from the discovery endpoint. 
 
 #### A comparison of common used claims between v1 v2
 
