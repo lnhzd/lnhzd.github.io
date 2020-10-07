@@ -5,11 +5,18 @@ title: Microsoft Identity Platform vs Azure AD
 
 AAD refers to v1 endpoint, while MIP refers to v2 endpoint.
 AAD and MIP exist side by side, for each tenant, you’ll have one discovery endpoint for each of them, e.g.:
+
 AAD:
+
 https://login.microsoftonline.com/cbbd5fc3-8924-44f4-aa61-e1683f47d182/.well-known/openid-configuration
 
+[Formatted](https://raw.githubusercontent.com/lnhzd/www.jekyllnow.com/resources/2020-09-03_discovery_v1)
+
 MIP:
+
 https://login.microsoftonline.com/cbbd5fc3-8924-44f4-aa61-e1683f47d182/v2.0/.well-known/openid-configuration
+
+[Formatted](https://raw.githubusercontent.com/lnhzd/www.jekyllnow.com/resources/2020-09-03_discovery_v2)
  
 #### Access Token, v1 or v2?
 It is the value of “accesstokenacceptedversion” under Manifest of App Registration determines if a v1 or v2 token will be issued – by default this will be V1 – “accesstokenacceptedversion”: null.
@@ -20,14 +27,16 @@ If accesstokenacceptedversion is set to 2 for an Azure App named App A with AppI
 
 Therefore, when requesting an access token for calling app - c3520820-bfc1-4e44-b0a2-cbe57eb28068 – you’ll get the same V2 access token from both token requests below.
 
-[Getting a token from V1 endpoint]
+* v1:
+
 POST https://login.microsoftonline.com/cbbd5fc3-8924-44f4-aa61-e1683f47d182/oauth2/token HTTP/1.1
 Host: login.microsoftonline.com
 Content-Type: application/x-www-form-urlencoded
 
 grant_type=password&client_id=11691347-c9a6-446b-aec1-04cba2dd36dc&client_secret=7Ck.B5vKOE[Jb]3kA.n1qy@QSdTVykox&resource=api://c3520820-bfc1-4e44-b0a2-cbe57eb28068&username=atlasuser@rdt-online.com&password=********
 
-[Getting a token from V2 endpoint]
+* v2:
+
 POST https://login.microsoftonline.com/cbbd5fc3-8924-44f4-aa61-e1683f47d182/oauth2/v2.0/token HTTP/1.1
 Host: login.microsoftonline.com
 Content-Type: application/x-www-form-urlencoded
@@ -54,3 +63,5 @@ on app’s start-up, depends on the authority configured, the app will go to the
 | 1                                     | sts.windows.net           |                                      | v2.0           | resource | 400  |
 | 1                                     | sts.windows.net           | 00000002-0000-0000-c000-000000000000 | v1.0           | scope    | 200  |
 | 1                                     | sts.windows.net           | api://appid*                         | v1.0           | resource | 200  |
+
+
