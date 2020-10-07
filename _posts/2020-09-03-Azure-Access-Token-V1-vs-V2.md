@@ -41,12 +41,12 @@ grant_type=password&client_id=11691347-c9a6-446b-aec1-04cba2dd36dc&client_secret
 
 
 #### Securing an API:
-When adding an authentication scheme to secure the API for incoming traffic, we will need to configure an authority (TokenUrl) to secured with, such authority (V1, or V2) will have to match the “accesstokenacceptedversion” of the Azure AD app that is acting as the API:
+When adding an authentication scheme to secure the API for incoming traffic, we will need to configure an authority (TokenUrl) to secured with, such authority (V1, or V2) will have to match the “accesstokenacceptedversion” of the Azure AD app (audience) that is acting as the API:
 
 V1 Authority: https://login.microsoftonline.com/cbbd5fc3-8924-44f4-aa61-e1683f47d182/oauth2/token  
 V2 Authority: https://login.microsoftonline.com/cbbd5fc3-8924-44f4-aa61-e1683f47d182/oauth2/v2.0/token  
 
-on app’s start-up, depends on the authority configured, the app will go to the corresponding discovery endpoint to fetch the OIDC metadata doc, as a result of this, for any requests that calls into the API with an access token, the claims from the access token needs to match whatever exposed from the discovery endpoint. 
+on app’s start-up, depends on the authority configured, the app will go to the corresponding discovery endpoint to fetch the OIDC metadata doc, as a result of this, for any requests that calls into the API with an access token, the claims from the access token need to match the values exposed from the discovery endpoint. 
 
 #### A comparison of common used claims between v1 v2
 
@@ -63,4 +63,15 @@ on app’s start-up, depends on the authority configured, the app will go to the
 
 
 00000002-0000-0000-c000-000000000000 is the app Id for AAD graph API - scope param is not recognoized by v1 endpoint, so v1 assumes you'd like an access token for getting access to graph api by default.
+
+#### Quiz Time:
+Q: Both test client and API are configured with V2 endpoint: test client is requesting a token from V2 endpoint, WebAPI is secured with V2 endpoint, why do I get a 401 response? Given I have checked the Audience configured on the API side matches the audience claim in the token request?
+A: It is likely that the Azure App the API secured with has "Accesstokenacceptedversion" configured as V1 (null) - When test client request a token from V2 endpoint, a V1 token will still be issued, hence iss claim has a value of "sts.windows.net", which does not match the one discovered from the V2 well-known endpoint on the API side - "login.microsoftonline.com".
+
+Q: What are the possible fix for the problem above?  
+A: Either change app registration so Accesstokenacceptedversion = 2, or change the Authority (TokenUrl) on the API side, from V1 to V2.
+
+Q: I have changed the app regitration with Accesstokenacceptedversion = 2, I have also updated configuration of the API to be secured by V2 endpoint. However all the tests suits are still getting token from V1 endpoint, do we need to update tests as well?  
+A: No, not needed. it is the Accesstokenacceptedversion determines the version of token to be issued, not token endpoint called from the caller side.
+
 
