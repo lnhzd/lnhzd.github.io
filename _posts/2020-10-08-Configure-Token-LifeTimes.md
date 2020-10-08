@@ -22,6 +22,22 @@ $sp = Get-AzureADServicePrincipal -Filter "DisplayName eq '<service principal di
 Add-AzureADServicePrincipalPolicy -Id $sp.ObjectId -RefObjectId $policy.Id
 ```
   
-Got lots of bad requests trying to get it expire in 2min time with no joy, this is because:  
+A few issues when setting this up:
+* Got lots of bad requests trying to get it expire in 2min time with no joy, this is because:  
 https://docs.microsoft.com/en-us/azure/active-directory/develop/active-directory-configurable-token-lifetimes#token-types  
 Minimium time is 10 min as specified above.
+
+* When assign the TokenLifetimePolicy to a service principal/application, it is important to be aware of this will affect all the access token issued for getting access to this resrouce (sp/app), not access token requested from this sp. i.e.: it will need to be assigned on the callee side. 
+
+Quiz Time:
+* I'd like to configure token life time, so when my app "myApp" is calling a db hosted in SQL Azure, the access token will be expired in 10 min instead of the ususal 60 min, what do I do?  
+
+Option A:
+$sp = Get-AzureADServicePrincipal -Filter "DisplayName eq 'my App'"  
+Add-AzureADServicePrincipalPolicy -Id $sp.ObjectId -RefObjectId $policy.Id  
+
+Option B:
+$sp = Get-AzureADServicePrincipal -Filter "DisplayName eq 'Azure SQL Database'"  
+Add-AzureADServicePrincipalPolicy -Id $sp.ObjectId -RefObjectId $policy.Id  
+
+Answer: B  
