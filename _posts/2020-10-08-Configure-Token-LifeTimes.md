@@ -3,6 +3,7 @@ layout: post
 title: Configure Token LifeTimes for a service principal
 ---
 
+This configuration is per tenant, service principal, or application.  
 In preview only, so need to load the module before using it:  
 ```powershell
 Import-Module AzureADPreview
