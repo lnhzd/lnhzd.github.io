@@ -69,7 +69,7 @@ Q: Both test client and API are configured with V2 endpoint: test client is requ
 A: It is likely that the Azure App the API secured with has "Accesstokenacceptedversion" configured as V1 (null) - When test client request a token from V2 endpoint, a V1 token will still be issued, hence iss claim has a value of "sts.windows.net", which does not match the one discovered from the V2 well-known endpoint on the API side - "login.microsoftonline.com".
 
 Q: What are the possible fix for the problem above?  
-A: Either change app registration so Accesstokenacceptedversion = 2, or change the Authority (TokenUrl) on the API side, from V1 to V2.
+A: Either change app registration so Accesstokenacceptedversion = 2, or change the Authority (TokenUrl) on the API side, from V2 to V1.
 
 Q: I have changed the app regitration with Accesstokenacceptedversion = 2, I have also updated configuration of the API to be secured by V2 endpoint. However all the tests suits are still getting token from V1 endpoint, do we need to update tests as well?  
 A: No, not needed. it is the Accesstokenacceptedversion determines the version of token to be issued, not token endpoint called from the caller side.
