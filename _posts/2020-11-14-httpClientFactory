@@ -1,0 +1,24 @@
+---
+layout: post
+title: httpClientFactory
+---
+
+There have already tons of good articles talking about benefit of using the httpClientFactory from .net core 2.1. 
+The key fact is, the correct way to use new http client factory is to create a new instance of httpClient for every single call. 
+Under the hood, the creating and disposal of delegating handler pipeline, including the primary http client handler (connection), is managed by http client factory so we don't need to worry about it anymore.  
+
+This note is to outline two common mistakes using the new http client factory which has NOT been well documented by Microsoft.  
+
+A few facts:  
+We may have more than one named httpClient in a service, e.g.: when our service is consuming both Service A and Service B.  
+For every named httpClient:  
+- there can be only 1 **active** handler pipeline at a time.  
+- there can be >= 0 expired handler pipeline at a time. Expired handler pipeline will only be disposed when no instance of httpClient is referencing it.They are still kept in the cache so if there are still any request being executed they are not affected.
+- Everytime a new httpClient instance is created, it will be created with the **active** hanlder pipeline.  
+- Every configured million seconds, a new active handler pipeline is created (along with a new scope), and the existing one is moved to the expired handler pipeline cache.
+
+The idea of this setting is:   
+1) to address socket exhaustion issue: to make sure there is only one primary http client handler for calling a service at a time.  
+2) respect DNS changes, so the connection can be refereshed every configured million seconds (via setHandlerLifetime)  
+
+
