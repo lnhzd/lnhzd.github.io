@@ -43,8 +43,8 @@ grant_type=password&client_id=11691347-c9a6-446b-aec1-04cba2dd36dc&client_secret
 #### Securing an API:
 When adding an authentication scheme to secure the API for incoming traffic, we will need to configure an authority (TokenUrl) to secured with, such authority (V1, or V2) will have to match the “accesstokenacceptedversion” of the Azure AD app (audience) that is acting as the API:
 
-V1 Authority: https://login.microsoftonline.com/cbbd5fc3-8924-44f4-aa61-e1683f47d182/oauth2/token  
-V2 Authority: https://login.microsoftonline.com/cbbd5fc3-8924-44f4-aa61-e1683f47d182/oauth2/v2.0/token  
+V1 Authority: https://login.microsoftonline.com/cbbd5fc3-8924-44f4-aa61-e1683f47d182  
+V2 Authority: https://login.microsoftonline.com/cbbd5fc3-8924-44f4-aa61-e1683f47d182/v2.0  
 
 on app’s start-up, depends on the authority configured, the app will go to the corresponding discovery endpoint to fetch the OIDC metadata doc, as a result of this, for any requests that calls into the API with an access token, the claims from the access token need to match the values exposed from the discovery endpoint. 
 
